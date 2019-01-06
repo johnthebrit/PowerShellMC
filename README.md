@@ -2,7 +2,7 @@
 ## PowerShell Master Class Assets
 
 All content Copyright 2019 John Savill. All rights reserved
-No part of this course be used without express permission from the author
+No part of this course to be used without express permission from the author
 john@savilltech.com
 @NTFAQGuy
 https://savilltech.com
