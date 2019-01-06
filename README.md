@@ -1,5 +1,5 @@
 # PowerShell Master Class GitHub Repo
-##PowerShell Master Class Assets
+## PowerShell Master Class Assets
 
 All content Copyright 2019 John Savill. All rights reserved
 No part of this course be used without express permission from the author
@@ -10,7 +10,7 @@ https://youtube.com/NTFAQGuy
 
 YouTube Playlist for the videos that these materials are for - https://www.youtube.com/playlist?list=PLlVtbbG169nFq_hR7FcMYg32xsSAObuq8
 
-##Getting a Clone
+## Getting a Clone
 Once Git is installed to have a local clone of the repository:
 
 ```sh
@@ -19,13 +19,13 @@ cd c:\PowerShellMC
 git clone https://github.com/johnthebrit/PowerShellMC.git .
 ```
 
-To update make sure you are in the folder downloaded to and run
+To update, make sure you are in the folder downloaded to and run
 
 ```sh
 git pull
 ```
 
-##Useful Links and Info
+## Useful Links and Info
 
 | Feature             | Link                                      |
 |---------------------|-------------------------------------------|
