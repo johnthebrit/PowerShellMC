@@ -1,0 +1,32 @@
+{
+
+    "git.ignoreMissingGitWarning": true,
+    "powershell.powerShellExePath": "c:\\Program Files\\PowerShell\\6\\pwsh.exe",
+    "editor.minimap.enabled": false,
+    "window.menuBarVisibility": "default",
+    "files.trimTrailingWhitespace": true,
+    "files.trimFinalNewlines": true,
+    "terminal.integrated.shell.windows": "c:\\Program Files\\PowerShell\\6\\pwsh.exe",
+    "editor.tabCompletion": "on",
+    "files.defaultLanguage": "powershell",
+    "powershell.integratedConsole.focusConsoleOnExecute": false,
+    "git.path": "C:\\Program Files\\Git\\bin\\git.exe",
+    "shellLauncher.shells.windows": [{
+        "shell": "c:\\Program Files\\PowerShell\\6\\pwsh.exe",
+        "label": "PowerShell Core"
+    },
+    {
+        "shell": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "label": "Windows PowerShell"
+    },
+    {
+        "shell": "C:\\Windows\\system32\\cmd.exe",
+        "label": "Windows Command Prompt"
+    }
+
+    ],
+    "sync.gist": "<GIST ID>",
+    "sync.autoDownload": true,
+    "git.autofetch": true,
+    "sync.autoUpload": true
+}
