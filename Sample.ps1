@@ -51,6 +51,21 @@ Write-Output "Hello $env:USERNAME"
 notepad
 $proc = Get-Process –name notepad
 $proc.GetType().fullname
+$proc | Get-Member
+
+get-process | Where-Object {$_.handles -gt 900} | Sort-Object -Property handles |
+    ft name, handles -AutoSize
+
+#Must be elevated
+Get-WinEvent -LogName security -MaxEvents 10 | Select-Object -Property Id, TimeCreated, Message |
+    Sort-Object -Property TimeCreated | convertto-html | out-file c:\sec.html
+
+$xml = [xml](get-content .\R_and_j.xml)
+$xml.PLAY
+$xml.PLAY.ACT
+$xml.PLAY.ACT[0].SCENE[0].SPEECH
+$xml.PLAY.ACT.SCENE.SPEECH | Group-Object speaker | Sort-Object count
+
 
 #Output to file
 Get-Process > procs.txt
