@@ -78,9 +78,27 @@ Get-Process | Sort-Object -Descending -Property StartTime | Select-Object -First
 Get-Process | Measure-Object
 Get-Process | Measure-Object WS -Sum
 
+#PowerShell Core or Windows PowerShell
+Get-WinEvent -LogName security -MaxEvents 5
+Invoke-Command -ComputerName savazuusscdc01, savazuusedc01 `
+    -ScriptBlock {get-winevent -logname security -MaxEvents 5}
+
+#Windows PowerShell only
+Get-EventLog -LogName Security -newest 10
+Invoke-command -ComputerName savdaldc01,savdalfs01,localhost `
+    -ScriptBlock {Get-EventLog -LogName Security -newest 10}
+
+
 #Comparing
 get-process | Export-csv d:\temp\proc.csv
 Compare-Object -ReferenceObject (Import-Csv d:\temp\proc.csv) -DifferenceObject (Get-Process) -Property Name
+
+notepad
+$procs = get-process
+get-process -Name notepad | Stop-Process
+$procs2 = get-process
+Compare-Object -ReferenceObject $procs -DifferenceObject $procs2 -Property Name
+
 
 # -confirm and -whatif
 get-aduser -filter * | Remove-ADUser -whatif
@@ -96,7 +114,10 @@ Get-ADUser -Filter * -Properties "LastLogonDate" `
     | Disable-ADAccount -WhatIf
 
 $ConfirmPreference = "medium"
+notepad
 Get-Process | where {$_.name –eq "notepad"} | Stop-Process
+notepad
+get-process | where {$_.name -eq "notepad"} | stop-process -confirm:$false
 $ConfirmPreference = "high"
 Get-Process | where {$_.name –eq "notepad"} | Stop-Process
 
@@ -109,6 +130,7 @@ Get-Process | Where-Object {$_.name –eq "notepad"} | Stop-Process
 Get-Process | where {$_.HandleCount -gt 900}
 Get-Process | where {$psitem.HandleCount -gt 900}
 Get-Process | where HandleCount -gt 900
+Get-Process | ? HandleCount -gt 900
 
 
 $UnattendFile = "unattend.xml"
