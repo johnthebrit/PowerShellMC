@@ -186,12 +186,14 @@ icm –session $sess –scriptblock {$env:computername}
 #Implicit remoting
 $adsess = New-PSSession -ComputerName savazuusscdc01
 Import-Module -Name ActiveDirectory -PSSession $adsess
-Get-Module
+Get-Module #type different from the type on the actual DC
+Get-Command -Module ActiveDirectory #functions instead of cmdlets
 Get-ADUser -Filter *
 $c = Get-Command Get-ADUser
 $c.Definition
 Remove-Module ActiveDirectory
 Import-Module -Name ActiveDirectory -PSSession $adsess -Prefix OnDC
+Get-Command -Module ActiveDirectory
 Get-OnDCADUser -Filter *  #I don't have regular Get-ADUser anymore
 
 #Execution operator
