@@ -45,3 +45,11 @@ Chocolately PowerShell Core upgrade -
 Choco outdated
 Choco upgrade powershell-core
 ```
+
+## References
+
+Installing PowerShell Core on Ubuntu - https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-6#ubuntu-1804
+Installing VS Core on Ubuntu - https://linuxize.com/post/how-to-install-visual-studio-code-on-ubuntu-18-04/
+https://www.ubuntu18.com/install-visual-studio-code-ubuntu-18/
+Setting up SSH - https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/ssh-remoting-in-powershell-core?view=powershell-6
+Secrets of PowerShell Remoting eBook - https://leanpub.com/secretsofpowershellremoting
