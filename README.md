@@ -48,6 +48,8 @@ Choco upgrade powershell-core
 
 ## References
 
+Windows PowerShell Compatibility - https://github.com/PowerShell/WindowsCompatibility
+
 Installing PowerShell Core on Ubuntu - https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-6#ubuntu-1804
 
 Installing VS Core on Ubuntu - https://linuxize.com/post/how-to-install-visual-studio-code-on-ubuntu-18-04/
