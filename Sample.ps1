@@ -1,4 +1,6 @@
-#region Basic Pipeline
+#region Module 1 - PowerShell Fundamentals
+
+#Basic Pipeline
 dir | Sort-Object -Descending
 
 dir | Sort-Object lastwritetime
@@ -8,10 +10,10 @@ dir | sort-object –descending –property lastwritetime
 #To show the object types being passed
 dir | foreach {"$($_.GetType().fullname)  -  $_.name"}  #lazy quick version using alias
 Get-ChildItem | ForEach-Object {"$($_.GetType().fullname)  -  $_.name"}  #Proper script version
-#endregion
 
 
-#Region Modules
+
+#Modules
 Get-Module #to see those loaded
 Get-Module –listavailable #to see all available
 Import-Module <module>  #to add into PowerShell instance
@@ -23,17 +25,14 @@ Get-Command -Module <module> | Select -Unique Noun | Sort Noun  #Lazy version :-
 (Get-Module az.compute).Version
 Install-Module Az
 Update-Module Az
-#endregion
 
 
-#Region Help
+#Help
 Get-Command –Module <module>
 Get-Command –Noun <noun>
 Update-Help
-#endregion
 
-
-#region Hello World
+#Hello World
 Write-Output "Hello World"
 
 #Use a variable
@@ -42,8 +41,8 @@ Write-Output "Hello $name"
 
 #Use an environment variable
 Write-Output "Hello $env:USERNAME"
-#endregion
 
+#endregion
 
 #region Module 2 - Connecting Commands
 
@@ -196,7 +195,7 @@ Import-Module -Name ActiveDirectory -PSSession $adsess -Prefix OnDC
 Get-Command -Module ActiveDirectory
 Get-OnDCADUser -Filter *  #I don't have regular Get-ADUser anymore
 
-#Execution operator
+#Execution operator &
 $comm = "get-process"
 $comm   #Nope
 &$comm  #Yep!
@@ -266,6 +265,12 @@ Get-PSSession -OutVariable sess
 $sess
 invoke-command $sess {get-process *s}
 $sess | Remove-PSSession
+
+
+#endregion
+
+#region Module 5 - Creating a PowerShell Script
+
 
 
 #endregion
