@@ -11,8 +11,6 @@ dir | sort-object –descending –property lastwritetime
 dir | foreach {"$($_.GetType().fullname)  -  $_.name"}  #lazy quick version using alias
 Get-ChildItem | ForEach-Object {"$($_.GetType().fullname)  -  $_.name"}  #Proper script version
 
-
-
 #Modules
 Get-Module #to see those loaded
 Get-Module –listavailable #to see all available
@@ -43,6 +41,7 @@ Write-Output "Hello $name"
 Write-Output "Hello $env:USERNAME"
 
 #endregion
+
 
 #region Module 2 - Connecting Commands
 
@@ -145,6 +144,7 @@ $resources.ResourceTypes.Where{($_.ResourceTypeName -eq 'virtualMachines')}.Loca
 
 
 #endregion
+
 
 #region Module 3 - Remote Management
 
@@ -269,6 +269,7 @@ $sess | Remove-PSSession
 
 #endregion
 
+
 #region Module 5 - Advanced PowerShell Scripting
 
 #Code signing
@@ -276,6 +277,7 @@ $cert = @(gci cert:\currentuser\my -codesigning)[0]
 Set-AuthenticodeSignature signme.ps1 $cert
 
 #endregion
+
 
 #region Module 6 - Parsing Data and Working With Objects
 
@@ -315,5 +317,45 @@ $password = (get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SamplePassword
 $newcred = New-Object System.Management.Automation.PSCredential ($username, $password)
 #Test
 invoke-command -ComputerName savazuusscdc01 -Credential $newcred -ScriptBlock {whoami}
+
+#Time
+$today=Get-Date
+$today | Select-Object –ExpandProperty DayOfWeek
+[DateTime]::ParseExact("02-25-2011","MM-dd-yyyy",[System.Globalization.CultureInfo]::InvariantCulture)
+$christmas=[system.datetime]"25 December 2019"
+($christmas - $today).Days
+$today.AddDays(-60)
+$a = new-object system.globalization.datetimeformatinfo
+$a.DayNames
+
+#Variable Scope
+function testscope()
+{
+    write-output $defvar
+    write-output $global:globvar
+    write-output $script:scripvar
+    write-output $private:privvar
+    $funcvar = "function"
+    $private:funcpriv = "funcpriv"
+    $global:funcglobal = "globfunc"
+}
+
+$defvar = "default/local" #default
+get-variable defvar -scope local
+$global:globvar = "global"
+$script:scripvar = "script"
+$private:privvar = "private"
+testscope
+$funcvar
+$funcglobal #this should be visible
+
+#Variables with Invoke-Command
+$ScriptBlockContent = {
+    param ($MessageToWrite)
+    Write-Host $MessageToWrite }
+Invoke-Command -ComputerName savazuusscdc01 -ScriptBlock $ScriptBlockContent -ArgumentList $message
+#or
+Invoke-Command -ComputerName savazuusscdc01 -ScriptBlock {Write-Output $args} -ArgumentList $message
+
 
 #endregion
