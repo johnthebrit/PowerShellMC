@@ -298,10 +298,18 @@ $cred = import-clixml -path $credpath
 
 #Using Key Vault
 Select-AzSubscription -Subscription (Get-AzSubscription | where Name -EQ "SavillTech Dev Subscription")
-$cred = Get-Credential -Credential John@savilltech.net
+$cred = Get-Credential
+#Reverse the secure password
+[Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($cred.Password))
+Set-AzKeyVaultSecret -VaultName 'SavillVault' -Name 'SamplePassword' -SecretValue $cred.Password
+$secretuser = ConvertTo-SecureString $cred.UserName -AsPlainText -Force
+Set-AzKeyVaultSecret -VaultName 'SavillVault' -Name 'SampleUser' -SecretValue $secretuser
 
-Save-AzPSCredential –ResourceGroupName RG-SCUSA -VaultName SavillVault
-$cred = Get-AzPSCredential –VaultName <vault> -Name <cred>
+#Getting back
+$username = (get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SampleUser').SecretValueText
+$password = (get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SampleUser').SecretValue
+(get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SamplePassword').SecretValueText
 
+$newcred = New-Object System.Management.Automation.PSCredential ($username, $password)
 
 #endregion
