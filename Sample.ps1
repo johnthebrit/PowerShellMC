@@ -362,4 +362,40 @@ Invoke-Command -ComputerName savazuusscdc01 -ScriptBlock {Write-Output $args} -A
 
 Invoke-Command -ComputerName savazuusscdc01 -ScriptBlock {Write-Host $using:message}
 
+
+#Hash Tables
+$favthings = @{"Julie"="Sushi";"Ben"="Trains";"Abby"="Princess";"Kevin"="Minecraft"}
+$favthings.Add("John","Crab Cakes")
+$favthings.Set_Item("John","Steak")
+$favthings.Get_Item("Abby")
+
+#Custom objects
+$cusobj = New-Object PSObject
+Add-Member -InputObject $cusobj -MemberType NoteProperty `
+    -Name greeting -Value "Hello"
+
+$favthings = @{"Julie"="Sushi";"Ben"="Trains";"Abby"="Princess";"Kevin"="Minecraft"}
+$favobj = New-Object PSObject -Property $favthings
+#In PowerShell v3 can skip a step
+$favobj2 = [PSCustomObject]@{"Julie"="Sushi";"Ben"="Trains";"Abby"="Princess";"Kevin"="Minecraft"}
+
+
+#Foreach
+$names = @("Julie","Abby","Ben","Kevin")
+$names | ForEach-Object -Process { Write-Output $_}
+$names | ForEach -Process { Write-Output $_}
+$names | ForEach { Write-Output $_}
+$names | % { Write-Output $_}
+
+foreach ($name in $names) { Write-Output $name} #nope
+
+#Accessing property values
+$samacctname = "John"
+Get-ADUser $samacctname  -Properties mail
+Get-ADUser $samacctname  -Properties mail | select-object mail
+Get-ADUser $samacctname  -Properties mail | select-object mail | get-member
+Get-ADUser $samacctname  -Properties mail | select-object -ExpandProperty mail | get-member
+Get-ADUser $samacctname  -Properties mail | select-object -ExpandProperty mail
+
+
 #endregion
