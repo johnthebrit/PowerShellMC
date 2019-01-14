@@ -424,6 +424,55 @@ Get-DscResource
 
 #region Module 8 - Automation Technologies
 
+#Short workflow
+Workflow MyWorkflow {Write-Output "Hello from Workflow!"}
+MyWorkflow
+
+#Long workflow
+Workflow LongWorkflow
+{
+Write-Output -InputObject "Loading some information..."
+  Start-Sleep -Seconds 10
+  CheckPoint-Workflow
+  Write-Output -InputObject "Performing process list..."
+  Get-process -PSPersist $true #this adds checkpoint
+  Start-Sleep -Seconds 10
+  CheckPoint-Workflow
+  Write-Output -InputObject "Cleaning up..."
+  Start-Sleep -Seconds 10
+
+}
+LongWorkflow –AsJob –JobName LongWF –PSPersist $true
+
+#Parallel execution
+workflow paralleltest
+{
+    parallel
+    {
+        get-process -Name w*
+        get-process -Name s*
+        get-service -name x*
+        get-eventlog -LogName Application -newest 10
+    }
+}
+paralleltest
+
+#Parallel and Sequence
+workflow parallelseqtest
+{
+    parallel
+    {
+        sequence
+        {
+            get-process -Name w*
+            get-process -Name s*
+        }
+        get-service -name x*
+        get-eventlog -LogName Application -newest 10
+    }
+}
+parallelseqtest
+
 
 
 #endregion
