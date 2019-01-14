@@ -299,6 +299,7 @@ $cred = import-clixml -path $credpath
 #Using Key Vault
 Select-AzSubscription -Subscription (Get-AzSubscription | where Name -EQ "SavillTech Dev Subscription")
 $cred = Get-Credential -Credential John@savilltech.net
+
 Save-AzPSCredential –ResourceGroupName RG-SCUSA -VaultName SavillVault
 $cred = Get-AzPSCredential –VaultName <vault> -Name <cred>
 
