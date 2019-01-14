@@ -350,6 +350,9 @@ $funcvar
 $funcglobal #this should be visible
 
 #Variables with Invoke-Command
+$message = "Message to John"
+Invoke-Command -ComputerName savazuusscdc01 -ScriptBlock {Write-Host $message}
+
 $ScriptBlockContent = {
     param ($MessageToWrite)
     Write-Host $MessageToWrite }
@@ -357,5 +360,6 @@ Invoke-Command -ComputerName savazuusscdc01 -ScriptBlock $ScriptBlockContent -Ar
 #or
 Invoke-Command -ComputerName savazuusscdc01 -ScriptBlock {Write-Output $args} -ArgumentList $message
 
+Invoke-Command -ComputerName savazuusscdc01 -ScriptBlock {Write-Host $using:message}
 
 #endregion
