@@ -269,8 +269,10 @@ $sess | Remove-PSSession
 
 #endregion
 
-#region Module 5 - Creating a PowerShell Script
+#region Module 6 - Advanced PowerShell Scripting
 
-
+#Code signing
+$cert = (gci cert:\currentuser\my -codesigning)[0]
+Set-AuthenticodeSignature script.ps1 $cert
 
 #endregion
