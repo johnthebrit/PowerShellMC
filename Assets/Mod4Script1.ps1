@@ -1,5 +1,5 @@
 Param(
-[string]$computername='savazuusds01')
+[string]$computername='savazuusscdc01')
 Get-WmiObject -class win32_computersystem `
 	-ComputerName $computername |
 	fl numberofprocessors,totalphysicalmemory
