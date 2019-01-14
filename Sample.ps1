@@ -269,10 +269,38 @@ $sess | Remove-PSSession
 
 #endregion
 
-#region Module 6 - Advanced PowerShell Scripting
+#region Module 5 - Advanced PowerShell Scripting
 
 #Code signing
-$cert = (gci cert:\currentuser\my -codesigning)[0]
-Set-AuthenticodeSignature script.ps1 $cert
+$cert = @(gci cert:\currentuser\my -codesigning)[0]
+Set-AuthenticodeSignature signme.ps1 $cert
+
+#endregion
+
+#region Module 6 - Parsing Data and Working With Objects
+
+#Credentials
+#This is not good
+$user = "administrator"
+$password = 'Pa55word'
+$securePassword = ConvertTo-SecureString $password `
+	-AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential ($user, $securePassword)
+
+#An encrypted string
+$encryptedPassword = ConvertFrom-SecureString (ConvertTo-SecureString -AsPlainText -Force "Password123")
+$securepassword = ConvertTo-SecureString "<the huge value from previous command>"
+
+#Another file
+$credpath = "c:\temp\MyCredential.xml"
+New-Object System.Management.Automation.PSCredential("john@savilltech.com", (ConvertTo-SecureString -AsPlainText -Force "Password123")) | Export-CliXml $credpath
+$cred = import-clixml -path $credpath
+
+#Using Key Vault
+Select-AzSubscription -Subscription (Get-AzSubscription | where Name -EQ "SavillTech Dev Subscription")
+$cred = Get-Credential -Credential John@savilltech.net
+Save-AzPSCredential –ResourceGroupName RG-SCUSA -VaultName SavillVault
+$cred = Get-AzPSCredential –VaultName <vault> -Name <cred>
+
 
 #endregion
