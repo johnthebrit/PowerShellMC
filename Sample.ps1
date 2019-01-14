@@ -496,7 +496,6 @@ workflow compparam
    {
         Get-CimInstance –Class Win32_OperatingSystem –PSComputerName $computer
         Get-CimInstance –Class win32_ComputerSystem –PSComputerName $computer
-
    }
 }
 compparam -computers savazuusscdc01, savazuusedc01
