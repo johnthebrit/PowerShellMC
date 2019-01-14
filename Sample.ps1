@@ -419,6 +419,11 @@ If (-not (Get-WindowsFeature "Web-Server").Installed)
 #Get all providers
 Get-DscResource
 
+#endregion
+
+
+#region Module 8 - Automation Technologies
+
 
 
 #endregion
