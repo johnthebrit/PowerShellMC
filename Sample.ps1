@@ -299,17 +299,21 @@ $cred = import-clixml -path $credpath
 #Using Key Vault
 Select-AzSubscription -Subscription (Get-AzSubscription | where Name -EQ "SavillTech Dev Subscription")
 $cred = Get-Credential
-#Reverse the secure password
-[Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($cred.Password))
+
+#Store username and password in keyvault
 Set-AzKeyVaultSecret -VaultName 'SavillVault' -Name 'SamplePassword' -SecretValue $cred.Password
-$secretuser = ConvertTo-SecureString $cred.UserName -AsPlainText -Force
+$secretuser = ConvertTo-SecureString $cred.UserName -AsPlainText -Force #have to make a secure string
 Set-AzKeyVaultSecret -VaultName 'SavillVault' -Name 'SampleUser' -SecretValue $secretuser
 
 #Getting back
 $username = (get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SampleUser').SecretValueText
-$password = (get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SampleUser').SecretValue
-(get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SamplePassword').SecretValueText
+$password = (get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SamplePassword').SecretValue
+(get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SamplePassword').SecretValueText #Can get the plain text via key vault
+[Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($password)) #Inspect if want to double check
 
+#Recreate
 $newcred = New-Object System.Management.Automation.PSCredential ($username, $password)
+#Test
+invoke-command -ComputerName savazuusscdc01 -Credential $newcred -ScriptBlock {whoami}
 
 #endregion
