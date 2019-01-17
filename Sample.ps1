@@ -266,6 +266,12 @@ $sess
 invoke-command $sess {get-process *s}
 $sess | Remove-PSSession
 
+#endregion
+
+
+#region Module 4 - PowerShell Scripting
+
+Get-CimInstance -ClassName Win32_Logical  #ctrl space to intelli sense all the name spaces available
 
 #endregion
 
