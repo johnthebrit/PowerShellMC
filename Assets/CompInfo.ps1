@@ -41,6 +41,6 @@ foreach ($computername in $computers)
     }
     else
     {
-        Write-Output "Failed for $computername"
+        Write-Error "Failed for $computername"
     }
 }
