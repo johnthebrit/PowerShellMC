@@ -320,7 +320,7 @@ Set-AuthenticodeSignature signme.ps1 $cert
 $user = "administrator"
 $password = 'Pa55word'
 $securePassword = ConvertTo-SecureString $password `
-	-AsPlainText -Force
+    -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential ($user, $securePassword)
 
 #An encrypted string
@@ -352,6 +352,29 @@ $newcred = New-Object System.Management.Automation.PSCredential ($username, $pas
 #Test
 invoke-command -ComputerName savazuusscdc01 -Credential $newcred -ScriptBlock {whoami}
 
+#Var types
+$number=42
+$boolset=$true
+$stringval="hello"
+$charval='a'
+$number.GetType()
+$boolset.GetType()
+$stringval.GetType()
+$charval.GetType()
+
+[char]$newchar= 'a'
+$newchar.GetType()
+
+42 –is [int]
+
+$number = [int]42
+$number.ToString() | gm
+
+$string1 = "the quick brown fox jumped over the lazy dog"
+$string1 -like "*fox*"
+$string2 = $string1 + " who was not amused"
+
+
 #Time
 $today=Get-Date
 $today | Select-Object –ExpandProperty DayOfWeek
@@ -363,7 +386,7 @@ $a = new-object system.globalization.datetimeformatinfo
 $a.DayNames
 
 #Variable Scope
-function testscope()
+function test-scope()
 {
     write-output $defvar
     write-output $global:globvar
@@ -379,7 +402,7 @@ get-variable defvar -scope local
 $global:globvar = "global"
 $script:scripvar = "script"
 $private:privvar = "private"
-testscope
+test-scope
 $funcvar
 $funcglobal #this should be visible
 
@@ -421,7 +444,16 @@ $names | ForEach -Process { Write-Output $_}
 $names | ForEach { Write-Output $_}
 $names | % { Write-Output $_}
 
-foreach ($name in $names) { Write-Output $name} #nope
+#Foreach vs Foreach
+ForEach-Object -InputObject (1..100) {
+    $_
+} | Measure-Object
+
+ForEach ($num in (1..100)) {
+    $num
+} | Measure-Object
+
+'Z'..'A'
 
 #Accessing property values
 $samacctname = "John"
