@@ -1,6 +1,6 @@
 ﻿
 #Set-ExecutionPolicy unrestricted -Force
-#Enable-PSRemoting -Force
+Enable-PSRemoting -Force
 
 #uses https://www.powershellgallery.com/packages/xWebAdministration/2.4.0.0
 Install-Module -Name xWebAdministration
