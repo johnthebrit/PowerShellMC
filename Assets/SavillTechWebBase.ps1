@@ -59,22 +59,3 @@ Configuration SavillTechWebsite
         }
     }
 }
-
-#Create the MOF
-SavillTechWebsite -NodeName localhost
-
-#Apply the configuration
-Start-DscConfiguration -Path .\SavillTechWebsite -Wait -Verbose
-
-#Test
-$IE=new-object -com internetexplorer.application
-$IE.navigate2("127.0.0.1")
-$IE.visible=$true
-
-#View the configuration
-Get-DscConfiguration
-
-#Remove if wanted but does not roll back the changes
-Remove-DscConfigurationDocument -Stage Current
-Remove-WindowsFeature -Name Web-Server
-Remove-Item -Path C:\inetpub\*.* -Recurse -Force
