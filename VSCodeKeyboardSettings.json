@@ -4,12 +4,12 @@
         "command": "shellLauncher.launch"
     },
     {
-        "key": "ctrl+shift+f8",
+        "key": "f8",
         "command": "PowerShell.RunSelection",
         "when": "editorTextFocus && editorLangId == 'powershell'"
     },
     {
-        "key": "f8",
+        "key": "ctrl+shift+f8",
         "command": "workbench.action.terminal.runSelectedText",
         "when": "editorTextFocus && editorLangId == 'powershell'"
     }
