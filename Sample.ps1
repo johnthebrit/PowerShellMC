@@ -517,15 +517,6 @@ Get-Job LongWF
 Receive-Job LongWF –Keep
 Remove-Job LongWF #removes the saved state of the job
 
-Workflow RestrictionCheck
-{
-    $msgtest = "Hello"
-    #$msgtest.ToUpper()
-    $msgtest = InlineScript {($using:msgtest).ToUpper()}
-    Write-Output $msgtest
-}
-RestrictionCheck
-
 #Parallel execution
 workflow paralleltest
 {
@@ -538,6 +529,17 @@ workflow paralleltest
     }
 }
 paralleltest
+
+workflow compparam
+{
+   param([string[]]$computers)
+   foreach –parallel ($computer in $computers)
+   {
+        Get-CimInstance –Class Win32_OperatingSystem –PSComputerName $computer
+        Get-CimInstance –Class win32_ComputerSystem –PSComputerName $computer
+   }
+}
+compparam -computers savazuusscdc01, savazuusedc01
 
 #Parallel and Sequence
 workflow parallelseqtest
@@ -555,15 +557,13 @@ workflow parallelseqtest
 }
 parallelseqtest
 
-workflow compparam
+Workflow RestrictionCheck
 {
-   param([string[]]$computers)
-   foreach –parallel ($computer in $computers)
-   {
-        Get-CimInstance –Class Win32_OperatingSystem –PSComputerName $computer
-        Get-CimInstance –Class win32_ComputerSystem –PSComputerName $computer
-   }
+    $msgtest = "Hello"
+    #msgtest.ToUpper()
+    $msgtest = InlineScript {($using:msgtest).ToUpper()}
+    Write-Output $msgtest
 }
-compparam -computers savazuusscdc01, savazuusedc01
+RestrictionCheck
 
 #endregion
