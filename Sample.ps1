@@ -566,4 +566,12 @@ Workflow RestrictionCheck
 }
 RestrictionCheck
 
+#Calling a function
+$FunctionURL = "<your URI>"
+Invoke-RestMethod -Method Get -Uri $FunctionURL
+
+Invoke-RestMethod -Method Get -Uri "$($FunctionURL)&name=John"
+
+$JSONBody = @{name = "World"} | ConvertTo-Json
+Invoke-RestMethod -Method Post -Body $JSONBody -Uri $FunctionURL
 #endregion
