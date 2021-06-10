@@ -16,7 +16,7 @@ YouTube Playlist for the videos that these materials are for - https://www.youtu
 | [2 Connecting Commands](https://youtu.be/K_LsLq5yGgk) | |
 | [3 Remote Management](https://youtu.be/PMRkM9jlMMw) | |
 | [Getting ready for DevOps](https://youtu.be/yavDKHV-OOI) | |
-| [4 Creating a PowerShell Script](https://youtu.be/sQm4zRvvX58) |[Azure PowerShell](https://youtu.be/RQMdJ-9-lxY) |
+| [4 Creating a PowerShell Script](https://youtu.be/sQm4zRvvX58) |[Azure PowerShell](https://youtu.be/RQMdJ-9-lxY) <br> [Using Try-Catch](https://youtu.be/2eByC9N1xIQ) <br>[Debug PowerShell](https://youtu.be/2cpU82i6YPU)|
 | [5 Advanced Scripting](https://youtu.be/BVU7MxlyMmA) | |
 | [6 Data and Objects](https://youtu.be/Bmsa6F69afA) | |
 | [7 Desired State Configuration](https://youtu.be/D-jmIk4xaWw) | |
