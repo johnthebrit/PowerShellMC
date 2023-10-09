@@ -342,10 +342,17 @@ $secretuser = ConvertTo-SecureString $cred.UserName -AsPlainText -Force #have to
 Set-AzKeyVaultSecret -VaultName 'SavillVault' -Name 'SampleUser' -SecretValue $secretuser
 
 #Getting back
-$username = (get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SampleUser').SecretValueText
-$password = (get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SamplePassword').SecretValue
-(get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SamplePassword').SecretValueText #Can get the plain text via key vault
-[Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($password)) #Inspect if want to double check
+#$username = (get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SampleUser').SecretValueText
+#$password = (get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SamplePassword').SecretValue
+#(get-azkeyvaultsecret -vaultName 'SavillVault' -Name 'SamplePassword').SecretValueText #Can get the plain text via key vault
+#[Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($password)) #Inspect if want to double check
+#This has changed
+$keyvaultname = 'SavillVault'
+$username = (get-azkeyvaultsecret -vaultName $keyvaultname -Name 'SampleUser' -AsPlainText)
+$password = (get-azkeyvaultsecret -vaultName $keyvaultname -Name 'SamplePassword').SecretValue
+$passwordtext = (get-azkeyvaultsecret -vaultName $keyvaultname -Name 'SamplePassword'-AsPlainText)
+
+
 
 #Recreate
 $newcred = New-Object System.Management.Automation.PSCredential ($username, $password)
